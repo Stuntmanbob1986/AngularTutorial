@@ -11,17 +11,10 @@ import { HousingLocation } from '../housinglocation';
     HousingLocationComponent
   ],
   template: `
-    <section>
-      <form>
-        <input type="text" placeholder="Filter by city">
-        <button class="primary" type="button">Search</button>
-      </form>
-    </section>
-    <section class="results">
-      <app-housing-location></app-housing-location>
-    </section>
+    <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
   `,
   styleUrl: './home.component.css'
+
 })
 export class HomeComponent {
   readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
