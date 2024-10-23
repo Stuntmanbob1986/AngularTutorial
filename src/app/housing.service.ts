@@ -10,7 +10,7 @@ export class HousingService {
   housingLocationList: HousingLocation[] = [
     {
       id: 0,
-      name: 'Acme Fresh Start Housing TEST',
+      name: 'Acme Fresh Start Housing',
       city: 'Chicago',
       state: 'IL',
       photo: `${this.baseUrl}/bernard-hermant-CLKGGwIBTaY-unsplash.jpg`,
