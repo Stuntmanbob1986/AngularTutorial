@@ -13,19 +13,21 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker-compose build --no-cache --force-rm
+      # run: | curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose chmod +x /usr/local/bin/docker-compose
+      run: docker compose build --no-cache --force-rm
 
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Test the Docker image
-      run: docker-compose up -d
+      run: docker compose up -d
 
   push_to_registry:
     name: Push Docker image to Docker Hub
