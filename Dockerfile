@@ -10,5 +10,7 @@ RUN npm install -g @angular/cli
 RUN npm install --legacy-peer-deps
 
 COPY . . 
+EXPOSE 3000
 
-CMD ["ng", "serve", "start"]
+CMD ["npm", "run", "start"]
+# CMD ["ng", "serve", "start"]
