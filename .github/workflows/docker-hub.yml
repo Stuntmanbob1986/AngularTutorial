@@ -53,10 +53,24 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: "{{defaultContext}}"
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     context: "{{defaultContext}}"
+    #     push: true
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Build Docker image
+      id: build_image
+      run: |
+        docker build "$GITHUB_WORKSPACE" -t ${{ secrets.DOCKER_USERNAME }}/angulartutorial:$GITHUB_SHA --label dockerfile-path="Dockerfile"
+
+    - name: Push Docker image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/angulartutorial:$GITHUB_SHA
+
+    - name: Logout from Docker Hub
+      run: docker logout
+
+    - name: End
+      run: echo "Docker image pushed to Docker Hub successfully"
