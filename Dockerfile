@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 4200
 
 # CMD ["npm", "run", "start"]
-CMD ["ng", "serve"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]
