@@ -12,8 +12,10 @@ import { HousingService } from '../housing.service';
     HousingLocationComponent
   ],
   template: `
+    <input type="text" placeholder="Filter by city" #filter>
+    <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
     <app-housing-location 
-      *ngFor="let housingLocation of housingLocationList" [housingLocation]="housingLocation">
+      *ngFor="let housingLocation of filteredLocationList" [housingLocation]="housingLocation">
     </app-housing-location>
   `,
   styleUrl: './home.component.css'
@@ -22,9 +24,24 @@ import { HousingService } from '../housing.service';
 export class HomeComponent {
   housingLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
+  filteredLocationList: HousingLocation[] = []; // hold the values that match the search criteria entered by the user
+  // filteredLocationList should contain the total set of data when page is loaded
+  // ==> constructor
   
   constructor() {
     this.housingLocationList = 
     this.housingService.getAllHousingLocations();
+    this.filteredLocationList = this.housingLocationList;
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.filteredLocationList = this.housingLocationList;
+      return;
+    }
+
+    this.filteredLocationList = this.housingLocationList.filter(
+      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+    );
   }
 }
