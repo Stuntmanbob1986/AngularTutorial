@@ -59,10 +59,12 @@ export class DetailsComponent {
 
   // housingLocationId = -1;
   constructor() {
-    const housingLocationId = Number(this.route.snapshot.params['id']);
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
 
     // "constructor now includes a call to the HousingService to pass the route parameter as an argument to the getHousingLocationById service function"
-    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
+      this.housingLocation = housingLocation;
+    })
   }
 
   submitApplication() {
